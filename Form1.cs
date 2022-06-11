@@ -90,12 +90,51 @@ namespace Posers
 
         private void SaveConfigurationButton_Click(object sender, EventArgs e)
         {
-            bool exists = System.IO.Directory.Exists("config");
 
-            if (!exists)
+            if (SessionOptionList.Items.Count != 0 && !FolderPathText.Text.Equals(""))
             {
-                System.IO.Directory.CreateDirectory("config");
+                bool exists = System.IO.Directory.Exists("config");
+
+                if (!exists)
+                {
+                    System.IO.Directory.CreateDirectory("config");
+                }
+
+                string fileName = Microsoft.VisualBasic.Interaction.InputBox("Please input a name for the configuration", "Config Title");
+
+                if (File.Exists("config/" + fileName + ".conf"))
+                {
+                    DialogResult res = MessageBox.Show("File already exists, would you like to overwrite it?", "Overwrite File?", MessageBoxButtons.YesNo);
+
+                    if (res != DialogResult.No)
+                    {
+                        File.Delete("config/" + fileName + ".conf");
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                }
+
+                using (StreamWriter writer = new StreamWriter("config/" + fileName + ".conf"))
+                {
+                    writer.WriteLine(FolderPathText.Text);
+
+                    ListView.ListViewItemCollection items = SessionOptionList.Items;
+
+                    foreach (ListViewItem item in items)
+                    {
+                        writer.WriteLine(item.SubItems[0].Text + "," + item.SubItems[1].Text + "," + item.SubItems[2].Text);
+                    }
+                }
             }
+            else
+            {
+                MessageBox.Show("You must input a file path and at least one session entry!");
+            }
+
+
         }
     }
 }

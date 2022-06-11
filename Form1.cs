@@ -72,7 +72,14 @@ namespace Posers
 
 
             FigureForm figureForm = new FigureForm();
-            figureForm.images = images;
+            List<string> deepImageCopy = new List<string>();
+
+            foreach(string image in images)
+            {
+                deepImageCopy.Add(image);
+            }
+
+            figureForm.images = deepImageCopy;
 
 
             ListView.ListViewItemCollection items = SessionOptionList.Items;
@@ -146,6 +153,9 @@ namespace Posers
 
         private void LoadConfigurationButton_Click(object sender, EventArgs e)
         {
+            FolderPathText.Clear();
+            SessionOptionList.Items.Clear();
+
             using (LoadData loadDataForm = new LoadData())
             {
                 DialogResult result = loadDataForm.ShowDialog();

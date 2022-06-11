@@ -43,9 +43,33 @@ namespace Posers
             }
         }
 
+        private void shuffle(IList<string> listIn)
+        {
+            Random rand = new Random();
+
+            for (int i = listIn.Count - 1; i > 0; i--)
+            {
+                int k = rand.Next(i + 1);
+                string value = listIn[k];
+                listIn[k] = listIn[i];
+                listIn[i] = value;
+            }
+        }
+
+        private void FigureForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FigureTimer.Stop();
+            FigureTimer.Tick -= timerTick;
+            FigureTimer = new System.Windows.Forms.Timer();
+        }
+
         private void FigureForm_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
+            this.FormClosing += new FormClosingEventHandler(FigureForm_FormClosing);
+
+            shuffle(images);
+
             figureImage.Image = Image.FromFile(images[0]);
             imageHolder.Add(images[0]);
             images.RemoveAt(0);
@@ -88,6 +112,11 @@ namespace Posers
                         {
                             images.Add(image);
                         }
+
+                        imageHolder = new List<string>();
+                        shuffle(images);
+                        figureImage.Image = Image.FromFile(images[0]);
+                        images.RemoveAt(0);
                     }
                     
 
@@ -96,6 +125,7 @@ namespace Posers
                 else
                 {
                     MessageBox.Show("Session completed!");
+                    FigureTimer.Tick -= timerTick;
                     this.Close();
                 }
                 

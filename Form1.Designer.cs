@@ -210,6 +210,7 @@
             this.LoadConfigurationButton.TabIndex = 5;
             this.LoadConfigurationButton.Text = "Load Configuration";
             this.LoadConfigurationButton.UseVisualStyleBackColor = true;
+            this.LoadConfigurationButton.Click += new System.EventHandler(this.LoadConfigurationButton_Click);
             // 
             // MainForm
             // 

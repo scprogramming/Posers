@@ -9,10 +9,30 @@ namespace Posers
             InitializeComponent();
         }
 
+        private void populateImages(string path)
+        {
+            int imagesFound = 0;
+
+            string[] files = Directory.GetFiles(path);
+
+            foreach (string file in files)
+            {
+                if (ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))
+                {
+                    images.Add(file);
+                    imagesFound++;
+                }
+
+            }
+
+            FolderPathText.Text = path;
+            ImagesFoundLabel.Text = "Found " + imagesFound.ToString() + " images in the folder";
+        }
+
         private void PickImageFolderButton_Click(object sender, EventArgs e)
         {
             images = new List<string>();
-            int imagesFound = 0;
+            
 
             using (var fbd = new FolderBrowserDialog())
             {
@@ -20,20 +40,7 @@ namespace Posers
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    string[] files = Directory.GetFiles(fbd.SelectedPath);
-
-                    foreach (string file in files)
-                    {
-                        if (ImageExtensions.Contains(Path.GetExtension(file).ToUpperInvariant()))
-                        {
-                            images.Add(file);
-                            imagesFound++;
-                        }
-                        
-                    }
-
-                    FolderPathText.Text = fbd.SelectedPath;
-                    ImagesFoundLabel.Text = "Found " + imagesFound.ToString() + " images in the folder";
+                    populateImages(fbd.SelectedPath);
                 }
             }
         }
@@ -66,10 +73,10 @@ namespace Posers
 
             FigureForm figureForm = new FigureForm();
             figureForm.images = images;
-            
+
 
             ListView.ListViewItemCollection items = SessionOptionList.Items;
-            
+
 
             foreach (ListViewItem item in items)
             {
@@ -136,5 +143,41 @@ namespace Posers
 
 
         }
+
+        private void LoadConfigurationButton_Click(object sender, EventArgs e)
+        {
+            using (LoadData loadDataForm = new LoadData())
+            {
+                DialogResult result = loadDataForm.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    string selectedConfig = loadDataForm.selectedConfig;
+
+                    IEnumerable<string> lines = File.ReadLines("config/" + selectedConfig + ".conf");
+                    int lineNum = 0;
+
+                    foreach (string line in lines)
+                    {
+                        if (lineNum == 0)
+                        {
+                            FolderPathText.Text = line;
+                            populateImages(line);
+                            lineNum += 1;
+                        }
+                        else
+                        {
+                            string[] durationLine = line.Split(",");
+
+                            string[] row = { durationLine[0], durationLine[1], durationLine[2] };
+                            ListViewItem item = new ListViewItem(row);
+                            SessionOptionList.Items.Add(item);
+                        }
+                    }
+                }
+
+            }
+        }
+
     }
 }

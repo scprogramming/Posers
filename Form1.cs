@@ -87,5 +87,15 @@ namespace Posers
         {
             SessionOptionList.View = View.Details;
         }
+
+        private void SaveConfigurationButton_Click(object sender, EventArgs e)
+        {
+            bool exists = System.IO.Directory.Exists("config");
+
+            if (!exists)
+            {
+                System.IO.Directory.CreateDirectory("config");
+            }
+        }
     }
 }

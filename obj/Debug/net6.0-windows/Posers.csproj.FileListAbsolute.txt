@@ -37,3 +37,4 @@ Z:\Posers\obj\Debug\net6.0-windows\Posers.pdb
 Z:\Posers\obj\Debug\net6.0-windows\Posers.genruntimeconfig.cache
 Z:\Posers\obj\Debug\net6.0-windows\ref\Posers.dll
 Z:\Posers\obj\Debug\net6.0-windows\Posers.LoadData.resources
+Z:\Posers\obj\Debug\net6.0-windows\Posers.Stats.resources

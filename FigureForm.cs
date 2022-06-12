@@ -20,6 +20,11 @@ namespace Posers
         public int startTime;
         private bool playPauseToggle = true;
 
+        private bool wasSkip = false;
+
+        private int secondsSpent = 0;
+        private int figuresCompleted = 0;
+
         public FigureForm()
         {
             InitializeComponent();
@@ -109,6 +114,57 @@ namespace Posers
                 imageHolder.Add(images[0]);
                 images.RemoveAt(0);
             }
+            if (!wasSkip)
+            {
+                figuresCompleted += 1;
+            }
+        }
+
+        private void updateStats()
+        {
+
+            if (File.Exists("stats.txt"))
+            {
+                int currentSeconds = 0;
+                int currentSessions = 0;
+                int currentFigures = 0;
+                int lineNum = 0;
+
+                IEnumerable<string> lines = File.ReadLines("stats.txt");
+
+                foreach (string line in lines)
+                {
+                    if (lineNum == 0)
+                    {
+                        currentSeconds = Int32.Parse(line.Substring(line.IndexOf("]") + 1));
+                    }else if (lineNum == 1)
+                    {
+                        currentSessions = Int32.Parse(line.Substring(line.IndexOf("]") + 1));
+                    }else if (lineNum == 2)
+                    {
+                        currentFigures = Int32.Parse(line.Substring(line.IndexOf("]") + 1));
+                    }
+                    lineNum++;
+                }
+
+                File.Delete("stats.txt");
+
+                using (StreamWriter writer = new StreamWriter("stats.txt"))
+                {
+                    writer.WriteLine("[TimeSpentDrawing]" + (currentSeconds + secondsSpent).ToString());
+                    writer.WriteLine("[NumberOfSessions]" + (currentSessions + 1).ToString());
+                    writer.WriteLine("[NumberOfFigures]" + (figuresCompleted + currentFigures).ToString());
+                }
+            }
+            else
+            {
+                using (StreamWriter writer = new StreamWriter("stats.txt"))
+                {
+                    writer.WriteLine("[TimeSpentDrawing]" + secondsSpent.ToString());
+                    writer.WriteLine("[NumberOfSessions]1");
+                    writer.WriteLine("[NumberOfFigures]" + figuresCompleted.ToString());
+                }
+            }
         }
 
         private void updateTime()
@@ -128,6 +184,7 @@ namespace Posers
             {
                 MessageBox.Show("Session completed!");
                 FigureTimer.Tick -= timerTick;
+                updateStats();
                 this.Close();
             }
         }
@@ -135,6 +192,7 @@ namespace Posers
         private void timerTick(object sends, EventArgs e)
         {
             startTime--;
+            secondsSpent += 1;
             TimeLabel.Text = startTime.ToString();
 
             if (startTime == 0)
@@ -162,7 +220,9 @@ namespace Posers
         private void SkipImageButton_Click(object sender, EventArgs e)
         {
             FigureTimer.Stop();
+            wasSkip = true;
             nextImage();
+            wasSkip = false;
             FigureTimer.Start();
         }
 

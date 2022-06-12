@@ -1,0 +1,3 @@
+[TimeSpentDrawing]100000
+[NumberOfSessions]4
+[NumberOfFigures]16

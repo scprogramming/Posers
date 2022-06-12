@@ -189,5 +189,18 @@ namespace Posers
             }
         }
 
+        private void StatsButton_Click(object sender, EventArgs e)
+        {
+            if (File.Exists("stats.txt"))
+            {
+                Stats statForm = new Stats();
+                statForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("No stats exist yet!");
+            }
+            
+        }
     }
 }

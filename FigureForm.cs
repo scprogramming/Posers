@@ -25,6 +25,8 @@ namespace Posers
         private int secondsSpent = 0;
         private int figuresCompleted = 0;
 
+        private int currentTimeInterval = 0;
+
         public FigureForm()
         {
             InitializeComponent();
@@ -85,6 +87,7 @@ namespace Posers
             buildTimes();
 
             startTime = times[0];
+            currentTimeInterval = startTime;
             times.RemoveAt(0);
 
             FigureTimer.Tick += timerTick;
@@ -173,7 +176,8 @@ namespace Posers
 
             if (times.Count != 0)
             {
-                startTime = times[0] + 1;
+                startTime = times[0];
+                currentTimeInterval = startTime;
                 times.RemoveAt(0);
 
                 nextImage();
@@ -223,6 +227,8 @@ namespace Posers
             wasSkip = true;
             nextImage();
             wasSkip = false;
+
+            startTime = currentTimeInterval;
             FigureTimer.Start();
         }
 

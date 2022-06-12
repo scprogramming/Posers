@@ -99,6 +99,43 @@ namespace Posers
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            string defaultConf = "";
+
+            if (File.Exists("default.txt"))
+            {
+
+                IEnumerable<string> lines = File.ReadLines("default.txt");
+
+                foreach (string line in lines)
+                {
+                    defaultConf = line;
+                }
+
+                FolderPathText.Clear();
+                SessionOptionList.Items.Clear();
+
+                lines = File.ReadLines(defaultConf);
+                int lineNum = 0;
+
+                foreach (string line in lines)
+                {
+                    if (lineNum == 0)
+                    {
+                        FolderPathText.Text = line;
+                        populateImages(line);
+                        lineNum += 1;
+                    }
+                    else
+                    {
+                        string[] durationLine = line.Split(",");
+
+                        string[] row = { durationLine[0], durationLine[1], durationLine[2] };
+                        ListViewItem item = new ListViewItem(row);
+                        SessionOptionList.Items.Add(item);
+                    }
+                }
+            }
+
             SessionOptionList.View = View.Details;
         }
 

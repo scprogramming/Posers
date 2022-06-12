@@ -35,6 +35,17 @@ namespace Posers
         {
             this.selectedConfig = ConfigListbox.GetItemText(ConfigListbox.SelectedItem);
             this.DialogResult = DialogResult.OK;
+
+            if (File.Exists("default.txt"))
+            {
+                File.Delete("default.txt");
+            }
+
+            using (StreamWriter writer = new StreamWriter("default.txt"))
+            {
+                writer.WriteLine("config/" + this.selectedConfig + ".conf");
+            }
+
             this.Close();
         }
 

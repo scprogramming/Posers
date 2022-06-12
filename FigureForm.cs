@@ -14,6 +14,7 @@ namespace Posers
     {
         public List<string> images = new List<string>();
         public List<string> imageHolder = new List<string>();
+        private List<int> quantityList = new List<int>();
 
         public List<Interval> intervals = new List<Interval>();
         public List<int> times = new List<int>();
@@ -27,6 +28,8 @@ namespace Posers
 
         private int currentTimeInterval = 0;
 
+        private int figCount = 0;
+
         public FigureForm()
         {
             InitializeComponent();
@@ -36,6 +39,7 @@ namespace Posers
         {
             foreach (Interval interval in intervals)
             {
+                quantityList.Add(interval.getQuantity());
                 for (int i = 0; i < interval.getQuantity(); i++)
                 {
                     if (interval.getUnit().Equals("Minutes"))
@@ -87,8 +91,12 @@ namespace Posers
             buildTimes();
 
             startTime = times[0];
+            figCount = quantityList[0];
             currentTimeInterval = startTime;
             times.RemoveAt(0);
+            quantityList.RemoveAt(0);
+
+            FiguresLeftLabel.Text = "Figures Left: " + figCount.ToString();
 
             FigureTimer.Tick += timerTick;
             FigureTimer.Interval = 1000;
@@ -191,6 +199,18 @@ namespace Posers
                 updateStats();
                 this.Close();
             }
+
+            figCount -= 1;
+
+            if (figCount == 0 && quantityList.Count != 0)
+            {
+                figCount = quantityList[0];
+                quantityList.RemoveAt(0);
+            }
+
+            FiguresLeftLabel.Text = "Figures Left: " + figCount.ToString();
+
+
         }
 
         private void timerTick(object sends, EventArgs e)

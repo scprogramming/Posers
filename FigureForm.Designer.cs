@@ -35,6 +35,7 @@
             this.PausePlayButton = new System.Windows.Forms.Button();
             this.SkipImageButton = new System.Windows.Forms.Button();
             this.SkipTimeButton = new System.Windows.Forms.Button();
+            this.FiguresLeftLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.figureImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,12 +96,22 @@
             this.SkipTimeButton.UseVisualStyleBackColor = true;
             this.SkipTimeButton.Click += new System.EventHandler(this.SkipTimeButton_Click);
             // 
+            // FiguresLeftLabel
+            // 
+            this.FiguresLeftLabel.AutoSize = true;
+            this.FiguresLeftLabel.ForeColor = System.Drawing.Color.White;
+            this.FiguresLeftLabel.Location = new System.Drawing.Point(16, 15);
+            this.FiguresLeftLabel.Name = "FiguresLeftLabel";
+            this.FiguresLeftLabel.Size = new System.Drawing.Size(0, 15);
+            this.FiguresLeftLabel.TabIndex = 5;
+            // 
             // FigureForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(993, 617);
+            this.Controls.Add(this.FiguresLeftLabel);
             this.Controls.Add(this.SkipTimeButton);
             this.Controls.Add(this.SkipImageButton);
             this.Controls.Add(this.PausePlayButton);
@@ -123,5 +134,6 @@
         private Button PausePlayButton;
         private Button SkipImageButton;
         private Button SkipTimeButton;
+        private Label FiguresLeftLabel;
     }
 }

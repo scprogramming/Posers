@@ -48,10 +48,9 @@ namespace Posers
                 lineNum++;
             }
 
-            int minutes = currentSeconds / 60;
-            int seconds = currentSeconds - minutes*60;
+            TimeSpan time = TimeSpan.FromSeconds(currentSeconds);
 
-            TimeSpentLabel.Text = minutes.ToString() + " minutes " + currentSeconds.ToString() + " seconds";
+            TimeSpentLabel.Text = time.ToString(@"hh") + " hours " + time.ToString(@"mm") + " minutes " + time.ToString(@"ss") + " seconds";
             SessionCountLabel.Text = currentSessions.ToString();
             FiguresDrawnLabel.Text = currentFigures.ToString();
 

@@ -37,5 +37,11 @@ namespace Posers
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
     }
 }

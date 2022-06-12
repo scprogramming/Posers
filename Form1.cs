@@ -190,40 +190,49 @@ namespace Posers
 
         private void LoadConfigurationButton_Click(object sender, EventArgs e)
         {
-            FolderPathText.Clear();
-            SessionOptionList.Items.Clear();
 
-            using (LoadData loadDataForm = new LoadData())
+            if (Directory.Exists("config"))
             {
-                DialogResult result = loadDataForm.ShowDialog();
+                FolderPathText.Clear();
+                SessionOptionList.Items.Clear();
 
-                if (result == DialogResult.OK)
+                using (LoadData loadDataForm = new LoadData())
                 {
-                    string selectedConfig = loadDataForm.selectedConfig;
+                    DialogResult result = loadDataForm.ShowDialog();
 
-                    IEnumerable<string> lines = File.ReadLines("config/" + selectedConfig + ".conf");
-                    int lineNum = 0;
-
-                    foreach (string line in lines)
+                    if (result == DialogResult.OK)
                     {
-                        if (lineNum == 0)
-                        {
-                            FolderPathText.Text = line;
-                            populateImages(line);
-                            lineNum += 1;
-                        }
-                        else
-                        {
-                            string[] durationLine = line.Split(",");
+                        string selectedConfig = loadDataForm.selectedConfig;
 
-                            string[] row = { durationLine[0], durationLine[1], durationLine[2] };
-                            ListViewItem item = new ListViewItem(row);
-                            SessionOptionList.Items.Add(item);
+                        IEnumerable<string> lines = File.ReadLines("config/" + selectedConfig + ".conf");
+                        int lineNum = 0;
+
+                        foreach (string line in lines)
+                        {
+                            if (lineNum == 0)
+                            {
+                                FolderPathText.Text = line;
+                                populateImages(line);
+                                lineNum += 1;
+                            }
+                            else
+                            {
+                                string[] durationLine = line.Split(",");
+
+                                string[] row = { durationLine[0], durationLine[1], durationLine[2] };
+                                ListViewItem item = new ListViewItem(row);
+                                SessionOptionList.Items.Add(item);
+                            }
                         }
                     }
-                }
 
+                }
             }
+            else
+            {
+                MessageBox.Show("No configurations available");
+            }
+            
         }
 
         private void StatsButton_Click(object sender, EventArgs e)

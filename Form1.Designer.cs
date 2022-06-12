@@ -44,6 +44,9 @@
             this.QuantityText = new System.Windows.Forms.TextBox();
             this.QuantityLabel = new System.Windows.Forms.Label();
             this.StartButton = new System.Windows.Forms.Button();
+            this.SaveConfigurationButton = new System.Windows.Forms.Button();
+            this.LoadConfigurationButton = new System.Windows.Forms.Button();
+            this.StatsButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -182,7 +185,7 @@
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(279, 379);
+            this.StartButton.Location = new System.Drawing.Point(197, 379);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(102, 42);
             this.StartButton.TabIndex = 3;
@@ -190,11 +193,44 @@
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
+            // SaveConfigurationButton
+            // 
+            this.SaveConfigurationButton.Location = new System.Drawing.Point(12, 292);
+            this.SaveConfigurationButton.Name = "SaveConfigurationButton";
+            this.SaveConfigurationButton.Size = new System.Drawing.Size(129, 37);
+            this.SaveConfigurationButton.TabIndex = 4;
+            this.SaveConfigurationButton.Text = "Save Configuration";
+            this.SaveConfigurationButton.UseVisualStyleBackColor = true;
+            this.SaveConfigurationButton.Click += new System.EventHandler(this.SaveConfigurationButton_Click);
+            // 
+            // LoadConfigurationButton
+            // 
+            this.LoadConfigurationButton.Location = new System.Drawing.Point(170, 292);
+            this.LoadConfigurationButton.Name = "LoadConfigurationButton";
+            this.LoadConfigurationButton.Size = new System.Drawing.Size(129, 37);
+            this.LoadConfigurationButton.TabIndex = 5;
+            this.LoadConfigurationButton.Text = "Load Configuration";
+            this.LoadConfigurationButton.UseVisualStyleBackColor = true;
+            this.LoadConfigurationButton.Click += new System.EventHandler(this.LoadConfigurationButton_Click);
+            // 
+            // StatsButton
+            // 
+            this.StatsButton.Location = new System.Drawing.Point(370, 379);
+            this.StatsButton.Name = "StatsButton";
+            this.StatsButton.Size = new System.Drawing.Size(102, 42);
+            this.StatsButton.TabIndex = 6;
+            this.StatsButton.Text = "Stats";
+            this.StatsButton.UseVisualStyleBackColor = true;
+            this.StatsButton.Click += new System.EventHandler(this.StatsButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(643, 433);
+            this.Controls.Add(this.StatsButton);
+            this.Controls.Add(this.LoadConfigurationButton);
+            this.Controls.Add(this.SaveConfigurationButton);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -227,5 +263,8 @@
         private ColumnHeader Quantity;
         private ColumnHeader Time;
         private ColumnHeader Unit;
+        private Button SaveConfigurationButton;
+        private Button LoadConfigurationButton;
+        private Button StatsButton;
     }
 }

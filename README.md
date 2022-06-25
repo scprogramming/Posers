@@ -1,2 +1,2 @@
 # Posers
-A customizable figure drawing program for artists
+A customizable figure drawing and drawing practice tool for artists

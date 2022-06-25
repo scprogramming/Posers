@@ -1,0 +1,3 @@
+[TimeSpentDrawing]5
+[NumberOfSessions]1
+[NumberOfFigures]4

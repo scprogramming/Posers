@@ -137,6 +137,7 @@ namespace Posers
             }
 
             SessionOptionList.View = View.Details;
+            TimeUnitCombo.SelectedIndex = 0;
         }
 
         private void SaveConfigurationButton_Click(object sender, EventArgs e)

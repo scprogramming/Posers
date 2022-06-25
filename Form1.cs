@@ -57,9 +57,17 @@ namespace Posers
 
             if (quantityParse && timeParse)
             {
-                string[] row = { quantity.ToString(), time.ToString(), unit };
-                ListViewItem item = new ListViewItem(row);
-                SessionOptionList.Items.Add(item);
+                if (quantity > 0 && time > 0)
+                {
+                    string[] row = { quantity.ToString(), time.ToString(), unit };
+                    ListViewItem item = new ListViewItem(row);
+                    SessionOptionList.Items.Add(item);
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("Time and quantity must be greater than 0");
+                }
+                
             }
             else
             {
@@ -194,8 +202,6 @@ namespace Posers
 
             if (Directory.Exists("config"))
             {
-                FolderPathText.Clear();
-                SessionOptionList.Items.Clear();
 
                 using (LoadData loadDataForm = new LoadData())
                 {
@@ -203,6 +209,10 @@ namespace Posers
 
                     if (result == DialogResult.OK)
                     {
+
+                        FolderPathText.Clear();
+                        SessionOptionList.Items.Clear();
+
                         string selectedConfig = loadDataForm.selectedConfig;
 
                         IEnumerable<string> lines = File.ReadLines("config/" + selectedConfig + ".conf");
@@ -249,5 +259,6 @@ namespace Posers
             }
             
         }
+
     }
 }

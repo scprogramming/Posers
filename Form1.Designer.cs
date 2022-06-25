@@ -185,7 +185,7 @@
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(197, 379);
+            this.StartButton.Location = new System.Drawing.Point(104, 379);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(102, 42);
             this.StartButton.TabIndex = 3;
@@ -215,7 +215,7 @@
             // 
             // StatsButton
             // 
-            this.StatsButton.Location = new System.Drawing.Point(370, 379);
+            this.StatsButton.Location = new System.Drawing.Point(279, 379);
             this.StatsButton.Name = "StatsButton";
             this.StatsButton.Size = new System.Drawing.Size(102, 42);
             this.StatsButton.TabIndex = 6;

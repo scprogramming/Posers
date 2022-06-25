@@ -1,1 +1,1 @@
-config/test.conf
+config/ForDebugging.conf
